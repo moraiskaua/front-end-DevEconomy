@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
+import Button from '../components/Button';
 
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = ({}) => {
   return (
     <div className="w-full">
-      <header className="flex flex-col items-center gap-4">
+      <header className="flex flex-col items-center gap-4 text-center">
         <h1 className="text-2xl font-bold text-gray-900  tracking-[-1px]">
           Entre em sua conta
         </h1>
@@ -27,9 +28,9 @@ const Login: React.FC<LoginProps> = ({}) => {
         <Input type="email" placeholder="E-mail" name="email" />
         <Input type="password" placeholder="Senha" name="password" />
 
-        <button type="submit" className="mt-2">
+        <Button type="submit" className="mt-2">
           Entrar
-        </button>
+        </Button>
       </form>
     </div>
   );
