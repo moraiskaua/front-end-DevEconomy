@@ -6,7 +6,7 @@ import { useRegisterController } from './useRegisterController';
 interface RegisterProps {}
 
 const Register: React.FC<RegisterProps> = ({}) => {
-  const { register, handleSubmit, errors } = useRegisterController();
+  const { register, handleSubmit, errors, isPending } = useRegisterController();
 
   return (
     <div className="w-full">
@@ -46,7 +46,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
           {...register('password')}
         />
 
-        <Button type="submit" className="mt-2">
+        <Button type="submit" className="mt-2" isLoading={isPending}>
           Criar conta
         </Button>
       </form>

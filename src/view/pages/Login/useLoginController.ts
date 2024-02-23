@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { httpClient } from '../../../app/services/httpClient';
+import { authService } from '../../../app/services/authService';
 
 type FormData = z.infer<typeof schema>;
 
@@ -21,10 +23,8 @@ export const useLoginController = () => {
     resolver: zodResolver(schema),
   });
 
-  const handleSubmit = hookFormHandleSubmit(data => {
-    const result = schema.safeParse(data);
-
-    console.log(result);
+  const handleSubmit = hookFormHandleSubmit(async data => {
+    //
   });
 
   return { handleSubmit, register, errors };
