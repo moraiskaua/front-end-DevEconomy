@@ -6,7 +6,7 @@ import { useLoginController } from './useLoginController';
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = ({}) => {
-  const { handleSubmit, register, errors } = useLoginController();
+  const { handleSubmit, register, errors, isPending } = useLoginController();
 
   return (
     <div className="w-full">
@@ -42,7 +42,7 @@ const Login: React.FC<LoginProps> = ({}) => {
           error={errors.password?.message}
         />
 
-        <Button type="submit" className="mt-2">
+        <Button type="submit" className="mt-2" isLoading={isPending}>
           Entrar
         </Button>
       </form>
