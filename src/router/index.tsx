@@ -3,6 +3,7 @@ import AuthGuard from './AuthGuard';
 import Login from '../view/pages/Login';
 import Register from '../view/pages/Register';
 import AuthLayout from '../view/layouts/AuthLayout';
+import Dashboard from '../view/pages/Dashboard';
 
 const Router: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const Router: React.FC = () => {
         </Route>
 
         <Route element={<AuthGuard isPrivate={true} />}>
-          <Route path="/" element={<h1>Dashboard</h1>} />
+          <Route path="/" element={<Dashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
