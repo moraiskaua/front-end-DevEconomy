@@ -18,7 +18,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({}) => {
           className="object-cover w-full h-full max-w-[656px] max-h-[960px] select-none rounded-b-[32px]"
         />
 
-        <div className="max-w-[656px] bottom-8 bg-white p-10 rounded-b-[32px] absolute">
+        <div className="max-w-[656px] bottom-8 mx-8 bg-white p-10 rounded-b-[32px] absolute">
           <p className="text-gray-700 font-medium text-xl">
             Gerencia sua finanças pessoais com o DevEconomy, e o melhor,
             totalmente de graça.
