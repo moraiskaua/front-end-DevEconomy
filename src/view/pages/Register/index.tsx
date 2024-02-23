@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import { useRegisterController } from './useRegisterController';
 
 interface RegisterProps {}
 
 const Register: React.FC<RegisterProps> = ({}) => {
+  const { register, handleSubmit, errors } = useRegisterController();
+
   return (
     <div className="w-full">
       <header className="flex flex-col items-center gap-4 text-center">
@@ -24,10 +27,24 @@ const Register: React.FC<RegisterProps> = ({}) => {
         </p>
       </header>
 
-      <form className="mt-[60px] flex flex-col gap-4">
-        <Input placeholder="Nome" name="name" />
-        <Input type="email" placeholder="E-mail" name="email" />
-        <Input type="password" placeholder="Senha" name="password" />
+      <form className="mt-[60px] flex flex-col gap-4" onSubmit={handleSubmit}>
+        <Input
+          placeholder="Nome"
+          error={errors.name?.message}
+          {...register('name')}
+        />
+        <Input
+          type="email"
+          placeholder="E-mail"
+          error={errors.email?.message}
+          {...register('email')}
+        />
+        <Input
+          type="password"
+          placeholder="Senha"
+          error={errors.password?.message}
+          {...register('password')}
+        />
 
         <Button type="submit" className="mt-2">
           Criar conta

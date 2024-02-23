@@ -5,6 +5,7 @@ import { z } from 'zod';
 type FormData = z.infer<typeof schema>;
 
 const schema = z.object({
+  name: z.string().min(1, 'Nome é obrigatório.'),
   email: z
     .string()
     .min(1, 'E-mail é obrigatório.')
@@ -12,7 +13,7 @@ const schema = z.object({
   password: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres.'),
 });
 
-export const useLoginController = () => {
+export const useRegisterController = () => {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
