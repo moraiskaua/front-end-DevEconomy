@@ -9,6 +9,7 @@ import { localStorageKeys } from '../config/localStorageKeys';
 import { useQuery } from '@tanstack/react-query';
 import { usersService } from '../services/usersService';
 import { httpClient } from '../services/httpClient';
+import PageLoader from '../../view/components/PageLoader';
 
 interface AuthContextType {
   signedIn: boolean;
@@ -29,10 +30,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return !!storedAccessToken;
   });
 
-  const { isError } = useQuery({
+  const { isError, isFetching, isSuccess } = useQuery({
     queryKey: ['users', 'me'],
     queryFn: () => usersService.me(),
     enabled: signedIn,
+    staleTime: Infinity,
   });
 
   const signin = useCallback((accessToken: string) => {
@@ -49,8 +51,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (isError) signout();
   }, [isError, signout]);
 
+  if (isFetching) {
+    return <PageLoader />;
+  }
+
   return (
-    <AuthContext.Provider value={{ signedIn, signin, signout }}>
+    <AuthContext.Provider
+      value={{ signedIn: isSuccess && signedIn, signin, signout }}
+    >
       {children}
     </AuthContext.Provider>
   );
