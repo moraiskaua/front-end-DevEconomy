@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { EyeIcon } from '../../../components/icons/EyeIcon';
+import AccountCard from './AccountCard';
 
 interface AccountsProps {}
 
@@ -34,7 +35,9 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
           </div>
         </div>
 
-        <div>contas...</div>
+        <div className="mt-4">
+          <AccountCard color="orange" name="Inter" balance={321.72} />
+        </div>
       </div>
     </div>
   );
