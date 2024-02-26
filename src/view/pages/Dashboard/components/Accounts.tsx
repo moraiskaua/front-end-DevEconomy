@@ -36,7 +36,12 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
         </div>
 
         <div className="mt-4">
-          <AccountCard color="orange" name="Inter" balance={321.72} />
+          <AccountCard
+            color="orange"
+            name="Inter"
+            balance={321.72}
+            type="CHECKING"
+          />
         </div>
       </div>
     </div>
