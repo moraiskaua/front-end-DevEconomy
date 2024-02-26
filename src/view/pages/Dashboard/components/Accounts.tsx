@@ -1,6 +1,9 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { EyeIcon } from '../../../components/icons/EyeIcon';
 import AccountCard from './AccountCard';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import AccountsSliderNavigation from './AccountsSliderNavigation';
 
 interface AccountsProps {}
 
@@ -20,28 +23,44 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
       </div>
 
       <div className="flex-1 flex flex-col justify-end">
-        <div className="flex items-center justify-between">
-          <strong className="text-white tracking-[-1px] text-lg font-bold">
-            Minhas contas
-          </strong>
+        <div>
+          <Swiper spaceBetween={16} slidesPerView={2.1}>
+            <div
+              className="flex items-center justify-between mb-4"
+              slot="container-start"
+            >
+              <strong className="text-white tracking-[-1px] text-lg font-bold">
+                Minhas contas
+              </strong>
 
-          <div>
-            <button className="p-3 rounded-full enabled:hover:bg-black/10 transition-colors disabled:opacity-40">
-              <ChevronLeftIcon className="size-6 text-white" />
-            </button>
-            <button className="p-3  rounded-full enabled:hover:bg-black/10 transition-colors disabled:opacity-40">
-              <ChevronRightIcon className="size-6 text-white" />
-            </button>
-          </div>
-        </div>
+              <AccountsSliderNavigation />
+            </div>
 
-        <div className="mt-4">
-          <AccountCard
-            color="orange"
-            name="Inter"
-            balance={321.72}
-            type="CHECKING"
-          />
+            <SwiperSlide>
+              <AccountCard
+                color="orange"
+                name="Inter"
+                balance={321.72}
+                type="CHECKING"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <AccountCard
+                color="orange"
+                name="Inter"
+                balance={321.72}
+                type="CHECKING"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <AccountCard
+                color="orange"
+                name="Inter"
+                balance={321.72}
+                type="CHECKING"
+              />
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </div>
