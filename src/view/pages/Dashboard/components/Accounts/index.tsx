@@ -1,13 +1,16 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
-import { EyeIcon } from '../../../components/icons/EyeIcon';
+import { EyeIcon } from '../../../../components/icons/EyeIcon';
 import AccountCard from './AccountCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import AccountsSliderNavigation from './AccountsSliderNavigation';
+import { useAccountsController } from './useAccountsController';
 
 interface AccountsProps {}
 
 const Accounts: React.FC<AccountsProps> = ({}) => {
+  const { sliderState, setSliderState } = useAccountsController();
+
   return (
     <div className="bg-teal-900 rounded-2xl w-full h-full px-4 py-8 md:p-10 flex flex-col">
       <div className="text-white">
@@ -24,7 +27,16 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
 
       <div className="flex-1 flex flex-col justify-end">
         <div>
-          <Swiper spaceBetween={16} slidesPerView={2.1}>
+          <Swiper
+            spaceBetween={16}
+            slidesPerView={2.1}
+            onSlideChange={swiper =>
+              setSliderState({
+                isBeginning: swiper.isBeginning,
+                isEnd: swiper.isEnd,
+              })
+            }
+          >
             <div
               className="flex items-center justify-between mb-4"
               slot="container-start"
@@ -33,7 +45,10 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
                 Minhas contas
               </strong>
 
-              <AccountsSliderNavigation />
+              <AccountsSliderNavigation
+                isBeginning={sliderState.isBeginning}
+                isEnd={sliderState.isEnd}
+              />
             </div>
 
             <SwiperSlide>
