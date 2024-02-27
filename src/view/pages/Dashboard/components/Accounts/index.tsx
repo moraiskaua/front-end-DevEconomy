@@ -1,4 +1,8 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PlusIcon,
+} from '@radix-ui/react-icons';
 import { EyeIcon } from '../../../../components/icons/EyeIcon';
 import AccountCard from './AccountCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -17,6 +21,7 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
     sliderState,
     areValuesVisible,
     isLoading,
+    accounts,
     setSliderState,
     toggleValuesVisibility,
   } = useAccountsController();
@@ -48,57 +53,77 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
           </div>
 
           <div className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
-            <div>
-              <Swiper
-                spaceBetween={16}
-                slidesPerView={windowWidth >= 500 ? 2.1 : 1.2}
-                onSlideChange={swiper =>
-                  setSliderState({
-                    isBeginning: swiper.isBeginning,
-                    isEnd: swiper.isEnd,
-                  })
-                }
-              >
-                <div
-                  className="flex items-center justify-between mb-4"
-                  slot="container-start"
+            {accounts.length > 0 ? (
+              <div>
+                <Swiper
+                  spaceBetween={16}
+                  slidesPerView={windowWidth >= 500 ? 2.1 : 1.2}
+                  onSlideChange={swiper =>
+                    setSliderState({
+                      isBeginning: swiper.isBeginning,
+                      isEnd: swiper.isEnd,
+                    })
+                  }
                 >
+                  <div
+                    className="flex items-center justify-between mb-4"
+                    slot="container-start"
+                  >
+                    <strong className="text-white tracking-[-1px] text-lg font-bold">
+                      Minhas contas
+                    </strong>
+
+                    <AccountsSliderNavigation
+                      isBeginning={sliderState.isBeginning}
+                      isEnd={sliderState.isEnd}
+                    />
+                  </div>
+
+                  <SwiperSlide>
+                    <AccountCard
+                      color="orange"
+                      name="Inter"
+                      balance={321.72}
+                      type="CHECKING"
+                    />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <AccountCard
+                      color="orange"
+                      name="Inter"
+                      balance={321.72}
+                      type="CHECKING"
+                    />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <AccountCard
+                      color="orange"
+                      name="Inter"
+                      balance={321.72}
+                      type="CHECKING"
+                    />
+                  </SwiperSlide>
+                </Swiper>
+              </div>
+            ) : (
+              <>
+                <div className="flex flex-col">
                   <strong className="text-white tracking-[-1px] text-lg font-bold">
                     Minhas contas
                   </strong>
 
-                  <AccountsSliderNavigation
-                    isBeginning={sliderState.isBeginning}
-                    isEnd={sliderState.isEnd}
-                  />
-                </div>
+                  <button className="mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col justify-center items-center gap-4 text-white">
+                    <div className="size-11 rounded-full border-2 border-dashed border-white flex justify-center items-center">
+                      <PlusIcon className="size-6" />
+                    </div>
 
-                <SwiperSlide>
-                  <AccountCard
-                    color="orange"
-                    name="Inter"
-                    balance={321.72}
-                    type="CHECKING"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <AccountCard
-                    color="orange"
-                    name="Inter"
-                    balance={321.72}
-                    type="CHECKING"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <AccountCard
-                    color="orange"
-                    name="Inter"
-                    balance={321.72}
-                    type="CHECKING"
-                  />
-                </SwiperSlide>
-              </Swiper>
-            </div>
+                    <span className="font-medium tracking-[-0.5px] block w-32 text-center">
+                      Cadastre uma nova conta
+                    </span>
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </>
       ) : (
