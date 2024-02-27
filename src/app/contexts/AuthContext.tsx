@@ -8,7 +8,6 @@ import {
 import { localStorageKeys } from '../config/localStorageKeys';
 import { useQuery } from '@tanstack/react-query';
 import { usersService } from '../services/usersService';
-import { httpClient } from '../services/httpClient';
 import PageLoader from '../../view/components/PageLoader';
 
 interface AuthContextType {

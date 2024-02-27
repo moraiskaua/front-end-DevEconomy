@@ -8,10 +8,13 @@ import TransactionsSliderNavigation from './TransactionsSliderNavigation';
 import { formatCurrency } from '../../../../../app/utils/formatCurrency';
 import { CategoryIcon } from '../../../../components/icons/categories/CategoryIcon';
 import { cn } from '../../../../../app/utils/cn';
+import { useTransactionsController } from './useTransactionsController';
 
 interface TransactionsProps {}
 
 const Transactions: React.FC<TransactionsProps> = ({}) => {
+  const { areValuesVisible } = useTransactionsController();
+
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full px-4 py-8 md:p-10 flex flex-col">
       <header>
@@ -61,7 +64,12 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
             </div>
           </div>
 
-          <span className={cn('tracking-[-0.5px] font-medium')}>
+          <span
+            className={cn(
+              'tracking-[-0.5px] font-medium',
+              !areValuesVisible && 'blur-sm',
+            )}
+          >
             {formatCurrency(782.9)}
           </span>
         </div>
