@@ -15,6 +15,7 @@ export const useAccountsController = () => {
     windowWidth,
     sliderState,
     areValuesVisible,
+    isLoading: false,
     toggleValuesVisibility,
     setSliderState,
   };
