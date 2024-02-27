@@ -10,10 +10,6 @@ interface DashboardProps {}
 const Dashboard: React.FC<DashboardProps> = ({}) => {
   return (
     <DashboardProvier>
-      <Modal title="Modal" open>
-        meu modal
-      </Modal>
-
       <div className="h-full w-full p-4 md:p-8 md:pt-6 flex flex-col gap-4">
         <header className="h-12 flex justify-between items-center">
           <h2 className="text-teal-900 font-bold text-lg">DevEconomy</h2>

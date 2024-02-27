@@ -10,22 +10,35 @@ import { useTransactionsController } from './useTransactionsController';
 import { Spinner } from '../../../../components/Spinner';
 import EmptyStateImage from '../../../../../assets/empty-state.svg';
 import TransactionTypeDropdown from './TransactionTypeDropdown';
+import FiltersModal from './FiltersModal';
 
 interface TransactionsProps {}
 
 const Transactions: React.FC<TransactionsProps> = ({}) => {
-  const { areValuesVisible, isLoading, isInitialLoading, transactions } =
-    useTransactionsController();
+  const {
+    areValuesVisible,
+    isLoading,
+    isInitialLoading,
+    transactions,
+    isFiltersModalOpen,
+    handleOpenFiltersModal,
+    handleCloseFiltersModal,
+  } = useTransactionsController();
 
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full px-4 py-8 md:p-10 flex flex-col">
       {!isInitialLoading ? (
         <>
+          <FiltersModal
+            open={isFiltersModalOpen}
+            onClose={handleCloseFiltersModal}
+          />
+
           <header>
             <div className="flex justify-between items-center">
               <TransactionTypeDropdown />
 
-              <button>
+              <button onClick={handleOpenFiltersModal}>
                 <FilterIcon />
               </button>
             </div>
