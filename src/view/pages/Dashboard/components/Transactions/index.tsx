@@ -10,15 +10,17 @@ import { CategoryIcon } from '../../../../components/icons/categories/CategoryIc
 import { cn } from '../../../../../app/utils/cn';
 import { useTransactionsController } from './useTransactionsController';
 import { Spinner } from '../../../../components/Spinner';
+import EmptyStateImage from '../../../../../assets/empty-state.svg';
 
 interface TransactionsProps {}
 
 const Transactions: React.FC<TransactionsProps> = ({}) => {
-  const { areValuesVisible, isLoading } = useTransactionsController();
+  const { areValuesVisible, isLoading, isInitialLoading, transactions } =
+    useTransactionsController();
 
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full px-4 py-8 md:p-10 flex flex-col">
-      {!isLoading ? (
+      {!isInitialLoading ? (
         <>
           <header>
             <div className="flex justify-between items-center">
@@ -55,27 +57,44 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
           </header>
 
           <div className="mt-4 space-y-2 flex-1 overflow-y-auto">
-            <div className="bg-white p-4 rounded-2xl flex justify-between items-center gap-4">
-              <div className="flex-1 flex items-center gap-3">
-                <CategoryIcon type="expense" />
+            {transactions.length > 0 || !isLoading ? (
+              <>
+                <div className="bg-white p-4 rounded-2xl flex justify-between items-center gap-4">
+                  <div className="flex-1 flex items-center gap-3">
+                    <CategoryIcon type="expense" />
 
-                <div>
-                  <strong className="font-bold tracking-[-0.5px] block">
-                    Almoço
-                  </strong>
-                  <span className="text-sm text-gray-600">27/02/2024</span>
+                    <div>
+                      <strong className="font-bold tracking-[-0.5px] block">
+                        Almoço
+                      </strong>
+                      <span className="text-sm text-gray-600">27/02/2024</span>
+                    </div>
+                  </div>
+
+                  <span
+                    className={cn(
+                      'tracking-[-0.5px] font-medium',
+                      !areValuesVisible && 'blur-sm',
+                    )}
+                  >
+                    {formatCurrency(782.9)}
+                  </span>
                 </div>
-              </div>
+              </>
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center">
+                {isLoading && <Spinner />}
 
-              <span
-                className={cn(
-                  'tracking-[-0.5px] font-medium',
-                  !areValuesVisible && 'blur-sm',
+                {!isLoading && transactions.length === 0 && (
+                  <>
+                    <img src={EmptyStateImage} className="" />
+                    <p className="text-gray-700">
+                      Não encontramos nenhum transação!
+                    </p>
+                  </>
                 )}
-              >
-                {formatCurrency(782.9)}
-              </span>
-            </div>
+              </div>
+            )}
           </div>
         </>
       ) : (
