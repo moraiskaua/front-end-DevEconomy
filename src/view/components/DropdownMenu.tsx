@@ -28,7 +28,7 @@ const DropdownMenuContent: React.FC<RdxDropDownMenuProps> = ({
     <RdxDropDownMenu.Portal>
       <RdxDropDownMenu.Content
         className={cn(
-          'bg-white rounded-2xl p-2 space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]',
+          'bg-white rounded-2xl p-2 space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] z-50',
           className,
         )}
       >
@@ -46,7 +46,7 @@ const DropdownMenuItem: React.FC<RdxDropDownMenuProps> = ({
   return (
     <RdxDropDownMenu.Item
       className={cn(
-        'min-h-12 outline-none flex items-center py-2 px-4 text-sm text-gray-800 data-[highlighted]:bg-gray-50 rounded-2xl transition-colors cursor-pointer',
+        'min-h-[40px] outline-none flex items-center py-2 px-4 text-sm text-gray-800 data-[highlighted]:bg-gray-50 rounded-2xl transition-colors cursor-pointer',
         className,
       )}
       onSelect={onSelect}
