@@ -10,7 +10,7 @@ const Fab: React.FC<FabProps> = ({}) => {
   return (
     <div className="fixed right-4 bottom-4">
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
+        <DropdownMenu.Trigger asChild>
           <button className="bg-teal-900 size-12 flex justify-center items-center rounded-full text-white">
             <PlusIcon className="size-6" />
           </button>

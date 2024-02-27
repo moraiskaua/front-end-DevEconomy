@@ -6,15 +6,19 @@ interface RdxDropDownMenuProps {
   children: ReactNode;
   className?: string;
   onSelect?: () => void;
+  asChild?: boolean;
 }
 
 const DropdownMenuRoot: React.FC<RdxDropDownMenuProps> = ({ children }) => {
   return <RdxDropDownMenu.Root>{children}</RdxDropDownMenu.Root>;
 };
 
-const DropdownMenuTrigger: React.FC<RdxDropDownMenuProps> = ({ children }) => {
+const DropdownMenuTrigger: React.FC<RdxDropDownMenuProps> = ({
+  children,
+  asChild,
+}) => {
   return (
-    <RdxDropDownMenu.Trigger className="outline-none">
+    <RdxDropDownMenu.Trigger className="outline-none" asChild={asChild}>
       {children}
     </RdxDropDownMenu.Trigger>
   );

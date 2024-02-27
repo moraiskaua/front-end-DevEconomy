@@ -11,7 +11,7 @@ const TransactionTypeDropdown: React.FC<
 > = ({}) => {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
+      <DropdownMenu.Trigger asChild>
         <button className="flex items-center gap-2">
           <TransactionsIcon />
           <span className="text-sm text-gray-800 tracking-[-0.5px] font-medium">
