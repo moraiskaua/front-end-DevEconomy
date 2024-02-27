@@ -17,7 +17,7 @@ const UserMenu: React.FC<UserMenuProps> = ({}) => {
         </div>
       </DropDownMenu.Trigger>
 
-      <DropDownMenu.Content className="w-32">
+      <DropDownMenu.Content className="w-32 mr-3 mt-2">
         <DropDownMenu.Item
           className="flex items-center justify-between"
           onSelect={signout}

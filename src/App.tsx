@@ -20,7 +20,7 @@ function App() {
         <Toaster />
         <Router />
       </AuthProvider>
-      <ReactQueryDevtools />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>
   );
 }

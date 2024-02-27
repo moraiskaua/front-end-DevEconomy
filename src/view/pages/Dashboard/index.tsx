@@ -1,6 +1,7 @@
 import { DashboardProvier } from '../../../app/contexts/DashboardContext';
 import UserMenu from '../../components/UserMenu';
 import Accounts from './components/Accounts';
+import Fab from './components/Fab';
 import Transactions from './components/Transactions';
 
 interface DashboardProps {}
@@ -22,6 +23,8 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
             <Transactions />
           </div>
         </main>
+
+        <Fab />
       </div>
     </DashboardProvier>
   );

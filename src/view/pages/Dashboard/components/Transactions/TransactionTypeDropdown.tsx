@@ -29,7 +29,7 @@ const TransactionTypeDropdown: React.FC<
 
         <DropdownMenu.Item className="gap-2">
           <ExpensesIcon />
-          Despezas
+          Despesas
         </DropdownMenu.Item>
 
         <DropdownMenu.Item className="gap-2">
