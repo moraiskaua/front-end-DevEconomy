@@ -8,7 +8,8 @@ import { useDashboard } from '../../../../../app/hooks/useDashboard';
 interface FabProps {}
 
 const Fab: React.FC<FabProps> = ({}) => {
-  const { handleOpenNewAccountModal } = useDashboard();
+  const { handleOpenNewAccountModal, handleOpenNewTransactionModal } =
+    useDashboard();
 
   return (
     <div className="fixed right-4 bottom-4">
@@ -20,12 +21,18 @@ const Fab: React.FC<FabProps> = ({}) => {
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Content className="mr-5 mb-2">
-          <DropdownMenu.Item className="gap-2">
+          <DropdownMenu.Item
+            className="gap-2"
+            onSelect={() => handleOpenNewTransactionModal('EXPENSE')}
+          >
             <Expense />
             Nova Despesa
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item className="gap-2">
+          <DropdownMenu.Item
+            className="gap-2"
+            onSelect={() => handleOpenNewTransactionModal('INCOME')}
+          >
             <Income /> Nova Receita
           </DropdownMenu.Item>
 

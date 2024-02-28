@@ -1,3 +1,4 @@
+import Button from '../../../../../components/Button';
 import ColorsDropdown from '../../../../../components/ColorsDropdown';
 import Input from '../../../../../components/Input';
 import InputCurrency from '../../../../../components/InputCurrency';
@@ -38,6 +39,10 @@ const NewAccountModal: React.FC<NewAccountModalProps> = ({}) => {
           />
           <ColorsDropdown />
         </div>
+
+        <Button type="submit" className="w-full mt-6">
+          Criar
+        </Button>
       </form>
     </Modal>
   );

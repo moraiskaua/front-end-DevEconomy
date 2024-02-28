@@ -5,6 +5,7 @@ import Accounts from './components/Accounts';
 import Fab from './components/Fab';
 import Transactions from './components/Transactions';
 import NewAccountModal from './components/modals/NewAccountModal';
+import NewTransactionModal from './components/modals/newTransactionModal';
 
 interface DashboardProps {}
 
@@ -12,6 +13,7 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
   return (
     <DashboardProvier>
       <NewAccountModal />
+      <NewTransactionModal />
 
       <div className="h-full w-full p-4 md:p-8 md:pt-6 flex flex-col gap-4">
         <header className="h-12 flex justify-between items-center">
