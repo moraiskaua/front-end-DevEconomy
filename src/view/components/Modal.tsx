@@ -1,4 +1,4 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as RdxDialog from '@radix-ui/react-dialog';
 import { cn } from '../../app/utils/cn';
 import { ReactNode } from 'react';
 import { Cross2Icon } from '@radix-ui/react-icons';
@@ -19,13 +19,13 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
 }) => {
   return (
-    <Dialog.Root open={open} onOpenChange={onClose}>
-      <Dialog.Portal>
-        <Dialog.Overlay
+    <RdxDialog.Root open={open} onOpenChange={onClose}>
+      <RdxDialog.Portal>
+        <RdxDialog.Overlay
           className={cn('fixed inset-0 bg-black/80 backdrop-blur-sm z-50')}
         />
 
-        <Dialog.Content className="outline-none fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-6 space-y-10 bg-white rounded-2xl z-[51] shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] w-full max-w-[400px]">
+        <RdxDialog.Content className="outline-none fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-6 space-y-10 bg-white rounded-2xl z-[51] shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] w-full max-w-[400px]">
           <header className="h-12 flex items-center justify-between text-gray-800">
             <button
               className="size-12 outline-none flex justify-center items-center"
@@ -41,9 +41,9 @@ const Modal: React.FC<ModalProps> = ({
           </header>
 
           <div>{children}</div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </RdxDialog.Content>
+      </RdxDialog.Portal>
+    </RdxDialog.Root>
   );
 };
 

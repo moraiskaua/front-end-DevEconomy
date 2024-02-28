@@ -24,6 +24,7 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
     accounts,
     setSliderState,
     toggleValuesVisibility,
+    handleOpenNewAccountModal,
   } = useAccountsController();
 
   return (
@@ -112,7 +113,10 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
                     Minhas contas
                   </strong>
 
-                  <button className="mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col justify-center items-center gap-4 text-white">
+                  <button
+                    className="mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col justify-center items-center gap-4 text-white"
+                    onClick={handleOpenNewAccountModal}
+                  >
                     <div className="size-11 rounded-full border-2 border-dashed border-white flex justify-center items-center">
                       <PlusIcon className="size-6" />
                     </div>

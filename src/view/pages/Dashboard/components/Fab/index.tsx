@@ -3,10 +3,13 @@ import DropdownMenu from '../../../../components/DropdownMenu';
 import { Expense } from '../../../../components/icons/categories/expense/Expense';
 import { Income } from '../../../../components/icons/categories/income/Income';
 import { BankAccountIcon } from '../../../../components/icons/BankAccountIcon';
+import { useDashboard } from '../../../../../app/hooks/useDashboard';
 
 interface FabProps {}
 
 const Fab: React.FC<FabProps> = ({}) => {
+  const { handleOpenNewAccountModal } = useDashboard();
+
   return (
     <div className="fixed right-4 bottom-4">
       <DropdownMenu.Root>
@@ -26,7 +29,10 @@ const Fab: React.FC<FabProps> = ({}) => {
             <Income /> Nova Receita
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item className="gap-2">
+          <DropdownMenu.Item
+            className="gap-2"
+            onSelect={handleOpenNewAccountModal}
+          >
             <BankAccountIcon /> Nova Conta
           </DropdownMenu.Item>
         </DropdownMenu.Content>

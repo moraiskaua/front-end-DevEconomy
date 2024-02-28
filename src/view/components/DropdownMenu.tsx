@@ -1,4 +1,4 @@
-import * as RdxDropDownMenu from '@radix-ui/react-dropdown-menu';
+import * as RdxDropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ReactNode } from 'react';
 import { cn } from '../../app/utils/cn';
 
@@ -10,7 +10,7 @@ interface RdxDropDownMenuProps {
 }
 
 const DropdownMenuRoot: React.FC<RdxDropDownMenuProps> = ({ children }) => {
-  return <RdxDropDownMenu.Root>{children}</RdxDropDownMenu.Root>;
+  return <RdxDropdownMenu.Root>{children}</RdxDropdownMenu.Root>;
 };
 
 const DropdownMenuTrigger: React.FC<RdxDropDownMenuProps> = ({
@@ -18,9 +18,9 @@ const DropdownMenuTrigger: React.FC<RdxDropDownMenuProps> = ({
   asChild,
 }) => {
   return (
-    <RdxDropDownMenu.Trigger className="outline-none" asChild={asChild}>
+    <RdxDropdownMenu.Trigger className="outline-none" asChild={asChild}>
       {children}
-    </RdxDropDownMenu.Trigger>
+    </RdxDropdownMenu.Trigger>
   );
 };
 
@@ -29,16 +29,16 @@ const DropdownMenuContent: React.FC<RdxDropDownMenuProps> = ({
   className,
 }) => {
   return (
-    <RdxDropDownMenu.Portal>
-      <RdxDropDownMenu.Content
+    <RdxDropdownMenu.Portal>
+      <RdxDropdownMenu.Content
         className={cn(
           'bg-white rounded-2xl p-2 space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] z-50',
           className,
         )}
       >
         {children}
-      </RdxDropDownMenu.Content>
-    </RdxDropDownMenu.Portal>
+      </RdxDropdownMenu.Content>
+    </RdxDropdownMenu.Portal>
   );
 };
 
@@ -48,7 +48,7 @@ const DropdownMenuItem: React.FC<RdxDropDownMenuProps> = ({
   onSelect,
 }) => {
   return (
-    <RdxDropDownMenu.Item
+    <RdxDropdownMenu.Item
       className={cn(
         'min-h-[40px] outline-none flex items-center py-2 px-4 text-sm text-gray-800 data-[highlighted]:bg-gray-50 rounded-2xl transition-colors cursor-pointer',
         className,
@@ -56,7 +56,7 @@ const DropdownMenuItem: React.FC<RdxDropDownMenuProps> = ({
       onSelect={onSelect}
     >
       {children}
-    </RdxDropDownMenu.Item>
+    </RdxDropdownMenu.Item>
   );
 };
 
