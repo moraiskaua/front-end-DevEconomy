@@ -1,3 +1,4 @@
+import ColorsDropdown from '../../../../../components/ColorsDropdown';
 import Input from '../../../../../components/Input';
 import InputCurrency from '../../../../../components/InputCurrency';
 import Modal from '../../../../../components/Modal';
@@ -35,6 +36,7 @@ const NewAccountModal: React.FC<NewAccountModalProps> = ({}) => {
               { label: 'Dinheiro físico', value: 'CASH' },
             ]}
           />
+          <ColorsDropdown />
         </div>
       </form>
     </Modal>
