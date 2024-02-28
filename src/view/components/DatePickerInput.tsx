@@ -3,6 +3,7 @@ import { cn } from '../../app/utils/cn';
 import { useState } from 'react';
 import { formatDate } from '../../app/utils/formatDate';
 import Popover from './Popover';
+import DatePicker from './DatePicker';
 
 interface DatePickerInputProps {
   className?: string;
@@ -33,6 +34,13 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
             <span>{formatDate(selectedDate)}</span>
           </button>
         </Popover.Trigger>
+
+        <Popover.Content>
+          <DatePicker
+            value={selectedDate}
+            onChange={date => setSelectedDate(date)}
+          />
+        </Popover.Content>
       </Popover.Root>
 
       {error && (

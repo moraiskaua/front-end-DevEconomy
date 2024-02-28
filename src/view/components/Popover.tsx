@@ -22,7 +22,7 @@ const PopoverContent: React.FC<RdxPopoverProps> = ({ children, className }) => {
     <RdxPopover.Portal>
       <RdxPopover.Content
         className={cn(
-          'bg-white rounded-2xl p-2 space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] z-[90]',
+          'bg-white rounded-2xl p-4 space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] z-[90]',
           className,
         )}
       >
