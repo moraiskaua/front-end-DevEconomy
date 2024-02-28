@@ -1,5 +1,6 @@
 import Button from '../../../../../components/Button';
 import ColorsDropdown from '../../../../../components/ColorsDropdown';
+import DatePickerInput from '../../../../../components/DatePickerInput';
 import Input from '../../../../../components/Input';
 import InputCurrency from '../../../../../components/InputCurrency';
 import Modal from '../../../../../components/Modal';
@@ -56,6 +57,7 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
               { label: 'Dinheiro físico', value: 'CASH' },
             ]}
           />
+          <DatePickerInput />
         </div>
 
         <Button type="submit" className="w-full mt-6">
