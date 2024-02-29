@@ -6,6 +6,10 @@ import toast from 'react-hot-toast';
 import { useBankAccounts } from '../../../../../../app/helpers/useBankAccounts';
 import { useCategories } from '../../../../../../app/helpers/useCategories';
 import { useMemo } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { transactionsService } from '../../../../../../app/services/transactionsService';
+import { CreateTransactionParams } from '../../../../../../app/services/transactionsService/create';
+import { currencyStringToNumber } from '../../../../../../app/utils/currencyStringToNumber';
 
 type FormData = z.infer<typeof schema>;
 
@@ -34,8 +38,14 @@ export const useNewTransactionModalController = () => {
     resolver: zodResolver(schema),
   });
 
+  const queryClient = useQueryClient();
+
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
+  const { isPending, mutateAsync } = useMutation({
+    mutationFn: async (data: CreateTransactionParams) =>
+      transactionsService.create(data),
+  });
 
   const categories = useMemo(() => {
     return categoriesList.filter(
@@ -45,9 +55,26 @@ export const useNewTransactionModalController = () => {
 
   const handleSubmit = hookFormHandleSubmit(async data => {
     try {
-      console.log(data);
+      await mutateAsync({
+        ...data,
+        value: currencyStringToNumber(data.value),
+        type: newTransactionType!,
+        date: data.date.toISOString(),
+      });
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      toast.success(
+        newTransactionType === 'EXPENSE'
+          ? 'Despesa cadastrada com sucesso!'
+          : 'Receita cadastrada com sucesso!',
+      );
+      handleCloseNewTransactionModal();
+      reset();
     } catch (error) {
-      toast.error('Algo de errado!');
+      toast.error(
+        newTransactionType === 'EXPENSE'
+          ? 'Erro ao cadastrar despesa!'
+          : 'Erro ao cadastrar receita!',
+      );
     }
   });
 
@@ -58,6 +85,7 @@ export const useNewTransactionModalController = () => {
     errors,
     accounts,
     categories,
+    isPending,
     register,
     handleCloseNewTransactionModal,
     handleSubmit,

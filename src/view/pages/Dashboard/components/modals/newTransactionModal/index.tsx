@@ -17,6 +17,7 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
     errors,
     accounts,
     categories,
+    isPending,
     register,
     handleSubmit,
     handleCloseNewTransactionModal,
@@ -110,7 +111,7 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6">
+        <Button type="submit" className="w-full mt-6" isLoading={isPending}>
           Criar
         </Button>
       </form>
