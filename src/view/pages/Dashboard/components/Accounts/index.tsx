@@ -18,6 +18,7 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
     areValuesVisible,
     isLoading,
     accounts,
+    currentBalance,
     setSliderState,
     toggleValuesVisibility,
     handleOpenNewAccountModal,
@@ -37,7 +38,7 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
                   !areValuesVisible && 'blur-md',
                 )}
               >
-                {formatCurrency(832.9)}
+                {formatCurrency(currentBalance)}
               </strong>
 
               <button
