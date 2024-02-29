@@ -12,6 +12,7 @@ interface NewAccountModalProps {}
 const NewAccountModal: React.FC<NewAccountModalProps> = ({}) => {
   const {
     isNewAccountModalOpen,
+    isPending,
     control,
     errors,
     handleCloseNewAccountModal,
@@ -50,19 +51,39 @@ const NewAccountModal: React.FC<NewAccountModalProps> = ({}) => {
             placeholder="Nome da conta"
             error={errors.name?.message}
           />
-          <Select
-            placeholder="Tipo"
-            error={errors.type?.message}
-            options={[
-              { label: 'Conta corrente', value: 'CHECKING' },
-              { label: 'Investimentos', value: 'INVESTMENT' },
-              { label: 'Dinheiro físico', value: 'CASH' },
-            ]}
+          <Controller
+            control={control}
+            name="type"
+            defaultValue="CHECKING"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                placeholder="Tipo"
+                error={errors.type?.message}
+                onChange={onChange}
+                value={value}
+                options={[
+                  { label: 'Conta corrente', value: 'CHECKING' },
+                  { label: 'Investimentos', value: 'INVESTMENT' },
+                  { label: 'Dinheiro físico', value: 'CASH' },
+                ]}
+              />
+            )}
           />
-          <ColorsDropdown error={errors.color?.message} />
+          <Controller
+            control={control}
+            name="color"
+            defaultValue=""
+            render={({ field: { onChange, value } }) => (
+              <ColorsDropdown
+                error={errors.color?.message}
+                onChange={onChange}
+                value={value}
+              />
+            )}
+          />
         </div>
 
-        <Button type="submit" className="w-full mt-6">
+        <Button type="submit" className="w-full mt-6" isLoading={isPending}>
           Criar
         </Button>
       </form>

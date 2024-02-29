@@ -20,8 +20,8 @@ const InputCurrency: React.FC<InputCurrencyProps> = ({
           'w-full text-gray-900 text-[32px] font-bold tracking-[-1px] outline-none',
           error && 'text-red-900',
         )}
-        thousandSeparator="."
         decimalSeparator=","
+        thousandSeparator="."
         onChange={e => onChange?.(e.target.value)}
         value={value}
       />

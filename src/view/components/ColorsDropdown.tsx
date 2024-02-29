@@ -8,15 +8,26 @@ import { useState } from 'react';
 interface ColorsDropdownProps {
   className?: string;
   error?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const ColorsDropdown: React.FC<ColorsDropdownProps> = ({
   className,
   error,
+  value,
+  onChange,
 }) => {
-  const [selectedColor, setSelectedColor] = useState<Color | null>(null);
+  const [selectedColor, setSelectedColor] = useState<Color | null>(() => {
+    if (!value) return null;
 
-  const handleSelectColor = (color: Color) => setSelectedColor(color);
+    return COLORS.find(c => c.color === value) ?? null;
+  });
+
+  const handleSelectColor = (color: Color) => {
+    setSelectedColor(color);
+    onChange?.(color.color);
+  };
 
   return (
     <div>

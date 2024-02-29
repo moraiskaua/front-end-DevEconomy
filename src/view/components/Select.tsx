@@ -6,6 +6,7 @@ import {
   CrossCircledIcon,
 } from '@radix-ui/react-icons';
 import { useState } from 'react';
+import { COLORS } from '../../app/config/constants';
 
 interface SelectProps {
   className?: string;
@@ -15,6 +16,9 @@ interface SelectProps {
     value: string;
     label: string;
   }[];
+
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -22,11 +26,14 @@ const Select: React.FC<SelectProps> = ({
   error,
   options,
   placeholder,
+  value,
+  onChange,
 }) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState(value);
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
+    onChange?.(value);
   };
 
   return (
@@ -41,7 +48,7 @@ const Select: React.FC<SelectProps> = ({
         >
           {placeholder}
         </label>
-        <RdxSelect.Root onValueChange={handleSelect}>
+        <RdxSelect.Root value={value} onValueChange={handleSelect}>
           <RdxSelect.Trigger
             className={cn(
               'outline-none bg-white rounded-lg border border-gray-500 px-3 h-[52px] text-gray-800 w-full text-left relative flex items-center pt-4',
