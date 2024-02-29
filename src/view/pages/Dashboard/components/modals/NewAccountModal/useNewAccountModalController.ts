@@ -11,9 +11,9 @@ import { currencyStringToNumber } from '../../../../../../app/utils/currencyStri
 type FormData = z.infer<typeof schema>;
 
 const schema = z.object({
-  name: z.string().min(1, 'Nome da conta é obrigatório'),
-  initialBalance: z.string().min(1, 'Saldo inicial é obrigatório'),
-  color: z.string().min(1, 'Cor é obrigatória'),
+  name: z.string().min(1, 'Nome da conta é obrigatório.'),
+  initialBalance: z.string().min(1, 'Saldo inicial é obrigatório.'),
+  color: z.string().min(1, 'Cor é obrigatória.'),
   type: z.enum(['INVESTMENT', 'CHECKING', 'CASH']),
 });
 

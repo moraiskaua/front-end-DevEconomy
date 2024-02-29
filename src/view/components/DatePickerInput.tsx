@@ -8,13 +8,22 @@ import DatePicker from './DatePicker';
 interface DatePickerInputProps {
   className?: string;
   error?: string;
+  value?: Date;
+  onChange?: (value: Date) => void;
 }
 
 const DatePickerInput: React.FC<DatePickerInputProps> = ({
   className,
   error,
+  value,
+  onChange,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(value ?? new Date());
+
+  const handleChangeDate = (date: Date) => {
+    setSelectedDate(date);
+    onChange?.(date);
+  };
 
   return (
     <div>
@@ -36,10 +45,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
         </Popover.Trigger>
 
         <Popover.Content>
-          <DatePicker
-            value={selectedDate}
-            onChange={date => setSelectedDate(date)}
-          />
+          <DatePicker value={selectedDate} onChange={handleChangeDate} />
         </Popover.Content>
       </Popover.Root>
 

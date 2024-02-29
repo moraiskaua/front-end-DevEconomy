@@ -1,5 +1,5 @@
+import { Controller } from 'react-hook-form';
 import Button from '../../../../../components/Button';
-import ColorsDropdown from '../../../../../components/ColorsDropdown';
 import DatePickerInput from '../../../../../components/DatePickerInput';
 import Input from '../../../../../components/Input';
 import InputCurrency from '../../../../../components/InputCurrency';
@@ -13,6 +13,11 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
   const {
     isNewTransactionModalOpen,
     newTransactionType,
+    control,
+    errors,
+    accounts,
+    register,
+    handleSubmit,
     handleCloseNewTransactionModal,
   } = useNewTransactionModalController();
 
@@ -21,43 +26,87 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
   return (
     <Modal
       title={isExpense ? 'Nova Despesa' : 'Nova Receita'}
-      open={isNewTransactionModalOpen}
+      open={true}
       onClose={handleCloseNewTransactionModal}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-[-0.5px] text-xs">
             Valor {isExpense ? 'da despesa' : 'da receita'}
           </span>
           <div className="flex items-center gap-2">
             <span className="text-gray-600 tracking-[-0.5px] text-lg">R$</span>
-            <InputCurrency />
+            <Controller
+              control={control}
+              name="value"
+              defaultValue="0"
+              render={({ field: { onChange, value } }) => (
+                <InputCurrency
+                  error={errors.value?.message}
+                  onChange={onChange}
+                  value={value}
+                />
+              )}
+            />
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-4">
           <Input
             type="text"
-            name="name"
+            {...register('name')}
             placeholder={isExpense ? 'Nome da despesa' : 'Nome da receita'}
+            error={errors.name?.message}
           />
-          <Select
-            placeholder="Categoria"
-            options={[
-              { label: 'Conta corrente', value: 'CHECKING' },
-              { label: 'Investimentos', value: 'INVESTMENT' },
-              { label: 'Dinheiro físico', value: 'CASH' },
-            ]}
+
+          <Controller
+            control={control}
+            name="categoryId"
+            defaultValue=""
+            render={({ field: { onChange, value } }) => (
+              <Select
+                placeholder="Categoria"
+                options={[
+                  { label: 'Conta corrente', value: 'CHECKING' },
+                  { label: 'Investimentos', value: 'INVESTMENT' },
+                  { label: 'Dinheiro físico', value: 'CASH' },
+                ]}
+                onChange={onChange}
+                value={value}
+                error={errors.categoryId?.message}
+              />
+            )}
           />
-          <Select
-            placeholder={isExpense ? 'Pagar com' : 'Receber com'}
-            options={[
-              { label: 'Conta corrente', value: 'CHECKING' },
-              { label: 'Investimentos', value: 'INVESTMENT' },
-              { label: 'Dinheiro físico', value: 'CASH' },
-            ]}
+
+          <Controller
+            control={control}
+            name="bankAccountId"
+            defaultValue=""
+            render={({ field: { onChange, value } }) => (
+              <Select
+                placeholder={isExpense ? 'Pagar com' : 'Receber com'}
+                options={accounts.map(account => ({
+                  value: account.id,
+                  label: account.name,
+                }))}
+                onChange={onChange}
+                value={value}
+                error={errors.bankAccountId?.message}
+              />
+            )}
           />
-          <DatePickerInput />
+
+          <Controller
+            control={control}
+            name="date"
+            render={({ field: { onChange, value } }) => (
+              <DatePickerInput
+                error={errors.date?.message}
+                onChange={onChange}
+                value={value}
+              />
+            )}
+          />
         </div>
 
         <Button type="submit" className="w-full mt-6">

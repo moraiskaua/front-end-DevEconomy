@@ -12,12 +12,12 @@ import { useState } from 'react';
 type FormData = z.infer<typeof schema>;
 
 const schema = z.object({
-  name: z.string().min(1, 'Nome da conta é obrigatório'),
+  name: z.string().min(1, 'Nome da conta é obrigatório.'),
   initialBalance: z.union([
-    z.string().min(1, 'Saldo inicial é obrigatório'),
+    z.string().min(1, 'Saldo inicial é obrigatório.'),
     z.number(),
   ]),
-  color: z.string().min(1, 'Cor é obrigatória'),
+  color: z.string().min(1, 'Cor é obrigatória.'),
   type: z.enum(['INVESTMENT', 'CHECKING', 'CASH']),
 });
 
