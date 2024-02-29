@@ -25,6 +25,7 @@ export const useNewAccountModalController = () => {
     handleSubmit: hookFormHandleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -42,6 +43,7 @@ export const useNewAccountModalController = () => {
       });
       toast.success('Conta cadastrada com sucesso!');
       handleCloseNewAccountModal();
+      reset();
     } catch {
       toast.error('Erro ao cadastrar conta!');
     }

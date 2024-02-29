@@ -21,7 +21,7 @@ const InputCurrency: React.FC<InputCurrencyProps> = ({
           error && 'text-red-900',
         )}
         decimalSeparator=","
-        thousandSeparator="."
+        decimalScale={2}
         onChange={e => onChange?.(e.target.value)}
         value={value}
       />

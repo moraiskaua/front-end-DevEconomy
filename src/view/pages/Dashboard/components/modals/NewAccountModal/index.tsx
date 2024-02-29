@@ -21,7 +21,11 @@ const NewAccountModal: React.FC<NewAccountModalProps> = ({}) => {
   } = useNewAccountModalController();
 
   return (
-    <Modal title="Nova conta" open={true} onClose={handleCloseNewAccountModal}>
+    <Modal
+      title="Nova conta"
+      open={isNewAccountModalOpen}
+      onClose={handleCloseNewAccountModal}
+    >
       <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-[-0.5px] text-xs">
