@@ -76,30 +76,16 @@ const Accounts: React.FC<AccountsProps> = ({}) => {
                     />
                   </div>
 
-                  <SwiperSlide>
-                    <AccountCard
-                      color="orange"
-                      name="Inter"
-                      balance={321.72}
-                      type="CHECKING"
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <AccountCard
-                      color="orange"
-                      name="Inter"
-                      balance={321.72}
-                      type="CHECKING"
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <AccountCard
-                      color="orange"
-                      name="Inter"
-                      balance={321.72}
-                      type="CHECKING"
-                    />
-                  </SwiperSlide>
+                  {accounts.map(account => (
+                    <SwiperSlide key={account.id}>
+                      <AccountCard
+                        color={account.color}
+                        name={account.name}
+                        balance={account.currentBalance}
+                        type={account.type}
+                      />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </div>
             ) : (

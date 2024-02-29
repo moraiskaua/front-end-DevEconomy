@@ -3,7 +3,7 @@ import { useDashboard } from '../../../../../../app/hooks/useDashboard';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { bankAccountService } from '../../../../../../app/services/bankAccountsService';
 import { BankAccountParams } from '../../../../../../app/services/bankAccountsService/create';
 import { currencyStringToNumber } from '../../../../../../app/utils/currencyStringToNumber';
@@ -30,6 +30,7 @@ export const useNewAccountModalController = () => {
     resolver: zodResolver(schema),
   });
 
+  const queryClient = useQueryClient();
   const { isPending, mutateAsync } = useMutation({
     mutationFn: async (data: BankAccountParams) =>
       bankAccountService.create(data),
@@ -41,6 +42,7 @@ export const useNewAccountModalController = () => {
         ...data,
         initialBalance: currencyStringToNumber(data.initialBalance),
       });
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
       toast.success('Conta cadastrada com sucesso!');
       handleCloseNewAccountModal();
       reset();

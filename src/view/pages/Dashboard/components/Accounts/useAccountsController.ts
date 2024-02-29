@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useWindowWidth } from '../../../../../app/hooks/useWindowWidth';
 import { useDashboard } from '../../../../../app/hooks/useDashboard';
+import { useQuery } from '@tanstack/react-query';
+import { bankAccountService } from '../../../../../app/services/bankAccountsService';
 
 export const useAccountsController = () => {
   const windowWidth = useWindowWidth();
+
   const {
     areValuesVisible,
     toggleValuesVisibility,
@@ -15,12 +18,18 @@ export const useAccountsController = () => {
     isEnd: false,
   });
 
+  const { data = [], isFetching } = useQuery({
+    queryKey: ['bankAccounts'],
+    queryFn: bankAccountService.getAll,
+  });
+
   return {
     windowWidth,
     sliderState,
     areValuesVisible,
     isLoading: false,
-    accounts: [],
+    accounts: data,
+    isFetching,
     toggleValuesVisibility,
     setSliderState,
     handleOpenNewAccountModal,
