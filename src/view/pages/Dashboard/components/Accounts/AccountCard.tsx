@@ -1,27 +1,23 @@
+import { BankAccount } from '../../../../../app/entities/BankAccount';
 import { useDashboard } from '../../../../../app/hooks/useDashboard';
 import { cn } from '../../../../../app/utils/cn';
 import { formatCurrency } from '../../../../../app/utils/formatCurrency';
 import { BankAccountTypeIcon } from '../../../../components/icons/BankAccountTypeIcon';
 
 interface AccountCardProps {
-  color: string;
-  name: string;
-  balance: number;
-  type: 'CASH' | 'CHECKING' | 'INVESTMENT';
+  data: BankAccount;
 }
 
-const AccountCard: React.FC<AccountCardProps> = ({
-  color,
-  name,
-  balance,
-  type,
-}) => {
-  const { areValuesVisible } = useDashboard();
+const AccountCard: React.FC<AccountCardProps> = ({ data }) => {
+  const { name, color, currentBalance, type } = data;
+  const { areValuesVisible, handleOpenEditAccountModal } = useDashboard();
 
   return (
     <div
       className="p-4 bg-white rounded-2xl h-[200px] flex flex-col justify-between border-b-4 border-teal-950"
       style={{ borderColor: color }}
+      role="button"
+      onClick={() => handleOpenEditAccountModal(data)}
     >
       <div>
         <BankAccountTypeIcon type={type} />
@@ -38,7 +34,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
             !areValuesVisible && 'blur-sm',
           )}
         >
-          {formatCurrency(balance)}
+          {formatCurrency(currentBalance)}
         </span>
         <small className="text-gray-600 text-sm">Saldo atual</small>
       </div>
