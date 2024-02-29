@@ -6,6 +6,8 @@ import InputCurrency from '../../../../../components/InputCurrency';
 import Modal from '../../../../../components/Modal';
 import Select from '../../../../../components/Select';
 import { useEditAccountModalController } from './useEditAccountModalController';
+import { TrashIcon } from '../../../../../components/icons/TrashIcon';
+import ConfirmDeleteModal from '../../../../../components/ConfirmDeleteModal';
 
 interface EditAccountModalProps {}
 
@@ -15,16 +17,39 @@ const EditAccountModal: React.FC<EditAccountModalProps> = ({}) => {
     isPending,
     control,
     errors,
+    isDeleteAccountModalOpen,
+    isPendingDelete,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
     handleCloseEditAccountModal,
     register,
     handleSubmit,
+    handleDeleteAccount,
   } = useEditAccountModalController();
+
+  if (isDeleteAccountModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        title="Tem certeza que deseja excluir esta conta?"
+        description="Ao excluir conta, todos os registros relacionados a ela serão
+            excluídos."
+        isLoading={isPendingDelete}
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleDeleteAccount}
+      />
+    );
+  }
 
   return (
     <Modal
       title="Editar conta"
       open={isEditAccountModalOpen}
       onClose={handleCloseEditAccountModal}
+      rightAction={
+        <button onClick={handleOpenDeleteModal}>
+          <TrashIcon className="size-6 text-red-900" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>

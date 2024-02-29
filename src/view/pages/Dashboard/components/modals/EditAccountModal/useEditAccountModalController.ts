@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { UpdateBankAccountParams } from '../../../../../../app/services/bankAccountsService/update';
 import { bankAccountService } from '../../../../../../app/services/bankAccountsService';
 import { currencyStringToNumber } from '../../../../../../app/utils/currencyStringToNumber';
+import { useState } from 'react';
 
 type FormData = z.infer<typeof schema>;
 
@@ -21,6 +22,22 @@ const schema = z.object({
 });
 
 export const useEditAccountModalController = () => {
+  const [isDeleteAccountModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleOpenDeleteModal = () => setIsDeleteModalOpen(true);
+  const handleCloseDeleteModal = () => setIsDeleteModalOpen(false);
+
+  const handleDeleteAccount = async () => {
+    try {
+      await removeAccount(accountBeingEdited!.id);
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
+      toast.success('Conta excluída com sucesso!');
+      handleCloseEditAccountModal();
+    } catch {
+      toast.error('Erro ao excluir conta!');
+    }
+  };
+
   const {
     isEditAccountModalOpen,
     handleCloseEditAccountModal,
@@ -43,14 +60,20 @@ export const useEditAccountModalController = () => {
   });
 
   const queryClient = useQueryClient();
-  const { isPending, mutateAsync } = useMutation({
+  const { isPending, mutateAsync: updateAccount } = useMutation({
     mutationFn: async (data: UpdateBankAccountParams) =>
       bankAccountService.update(data),
   });
 
+  const { isPending: isPendingDelete, mutateAsync: removeAccount } =
+    useMutation({
+      mutationFn: async (bankAccountId: string) =>
+        bankAccountService.remove(bankAccountId),
+    });
+
   const handleSubmit = hookFormHandleSubmit(async data => {
     try {
-      await mutateAsync({
+      await updateAccount({
         ...data,
         id: accountBeingEdited!.id,
         initialBalance: currencyStringToNumber(data.initialBalance),
@@ -68,8 +91,13 @@ export const useEditAccountModalController = () => {
     errors,
     control,
     isPending,
+    isDeleteAccountModalOpen,
+    isPendingDelete,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
     register,
     handleSubmit,
     handleCloseEditAccountModal,
+    handleDeleteAccount,
   };
 };
