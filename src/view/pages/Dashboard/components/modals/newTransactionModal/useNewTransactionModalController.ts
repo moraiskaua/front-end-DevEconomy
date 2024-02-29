@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { useBankAccounts } from '../../../../../../app/helpers/useBankAccounts';
+import { useCategories } from '../../../../../../app/helpers/useCategories';
+import { useMemo } from 'react';
 
 type FormData = z.infer<typeof schema>;
 
@@ -33,6 +35,13 @@ export const useNewTransactionModalController = () => {
   });
 
   const { accounts } = useBankAccounts();
+  const { categories: categoriesList } = useCategories();
+
+  const categories = useMemo(() => {
+    return categoriesList.filter(
+      category => category.type === newTransactionType,
+    );
+  }, [categoriesList, newTransactionType]);
 
   const handleSubmit = hookFormHandleSubmit(async data => {
     try {
@@ -48,6 +57,7 @@ export const useNewTransactionModalController = () => {
     control,
     errors,
     accounts,
+    categories,
     register,
     handleCloseNewTransactionModal,
     handleSubmit,

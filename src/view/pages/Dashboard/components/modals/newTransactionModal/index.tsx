@@ -16,6 +16,7 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
     control,
     errors,
     accounts,
+    categories,
     register,
     handleSubmit,
     handleCloseNewTransactionModal,
@@ -26,7 +27,7 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
   return (
     <Modal
       title={isExpense ? 'Nova Despesa' : 'Nova Receita'}
-      open={true}
+      open={isNewTransactionModalOpen}
       onClose={handleCloseNewTransactionModal}
     >
       <form onSubmit={handleSubmit}>
@@ -66,11 +67,10 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
             render={({ field: { onChange, value } }) => (
               <Select
                 placeholder="Categoria"
-                options={[
-                  { label: 'Conta corrente', value: 'CHECKING' },
-                  { label: 'Investimentos', value: 'INVESTMENT' },
-                  { label: 'Dinheiro físico', value: 'CASH' },
-                ]}
+                options={categories.map(category => ({
+                  value: category.id,
+                  label: category.name,
+                }))}
                 onChange={onChange}
                 value={value}
                 error={errors.categoryId?.message}
@@ -99,6 +99,7 @@ const NewTransactionModal: React.FC<NewTransactionModalProps> = ({}) => {
           <Controller
             control={control}
             name="date"
+            defaultValue={new Date()}
             render={({ field: { onChange, value } }) => (
               <DatePickerInput
                 error={errors.date?.message}

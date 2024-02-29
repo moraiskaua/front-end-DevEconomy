@@ -4,7 +4,7 @@ import { httpClient } from '../httpClient';
 type BankAccountsResponse = Array<BankAccount>;
 
 export const getAll = async () => {
-  const { data } = await httpClient.get<BankAccountsResponse>('bank-accounts');
+  const { data } = await httpClient.get<BankAccountsResponse>('/bank-accounts');
 
   return data;
 };
