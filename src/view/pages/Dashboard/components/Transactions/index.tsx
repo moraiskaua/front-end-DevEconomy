@@ -39,7 +39,10 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
 
           <header>
             <div className="flex justify-between items-center">
-              <TransactionTypeDropdown />
+              <TransactionTypeDropdown
+                onSelect={handleChangeFilters('type')}
+                selectedType={filters.type}
+              />
 
               <button onClick={handleOpenFiltersModal}>
                 <FilterIcon />
