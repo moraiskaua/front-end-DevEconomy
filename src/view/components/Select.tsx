@@ -6,7 +6,6 @@ import {
   CrossCircledIcon,
 } from '@radix-ui/react-icons';
 import { useState } from 'react';
-import { COLORS } from '../../app/config/constants';
 
 interface SelectProps {
   className?: string;

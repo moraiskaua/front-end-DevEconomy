@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useWindowWidth } from '../../../../../app/hooks/useWindowWidth';
 import { useDashboard } from '../../../../../app/hooks/useDashboard';
-import { useQuery } from '@tanstack/react-query';
-import { bankAccountService } from '../../../../../app/services/bankAccountsService';
 import { useBankAccounts } from '../../../../../app/helpers/useBankAccounts';
 
 export const useAccountsController = () => {
