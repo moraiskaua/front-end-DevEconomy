@@ -12,6 +12,7 @@ import EmptyStateImage from '../../../../../assets/empty-state.svg';
 import TransactionTypeDropdown from './TransactionTypeDropdown';
 import FiltersModal from './FiltersModal';
 import { formatDate } from '../../../../../app/utils/formatDate';
+import EditTransactionModal from '../modals/EditTransactionModal';
 
 interface TransactionsProps {}
 
@@ -23,10 +24,14 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
     transactions,
     isFiltersModalOpen,
     filters,
+    isEditModalOpen,
+    transactionBeingEdited,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
     handleChangeFilters,
     handleApplyFilters,
+    handleOpenEditModal,
+    handleCloseEditModal,
   } = useTransactionsController();
 
   return (
@@ -80,10 +85,20 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
           <div className="mt-4 space-y-2 flex-1 overflow-y-auto">
             {transactions.length > 0 && !isLoading ? (
               <>
+                {transactionBeingEdited && (
+                  <EditTransactionModal
+                    open={isEditModalOpen}
+                    onClose={handleCloseEditModal}
+                    transaction={transactionBeingEdited}
+                  />
+                )}
+
                 {transactions.map(transaction => (
                   <div
                     key={transaction.id}
+                    role="button"
                     className="bg-white p-4 rounded-2xl flex justify-between items-center gap-4"
+                    onClick={() => handleOpenEditModal(transaction)}
                   >
                     <div className="flex-1 flex items-center gap-3">
                       <CategoryIcon
