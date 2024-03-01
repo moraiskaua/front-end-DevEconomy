@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useBankAccounts } from '../../../../../../app/helpers/useBankAccounts';
 import { useCategories } from '../../../../../../app/helpers/useCategories';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Transaction } from '../../../../../../app/entities/Transaction';
 import { UpdateTransactionParams } from '../../../../../../app/services/transactionsService/update';
@@ -30,7 +30,6 @@ export const useEditTransactionModalController = (
     handleSubmit: hookFormHandleSubmit,
     formState: { errors },
     control,
-    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -42,15 +41,23 @@ export const useEditTransactionModalController = (
     },
   });
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const queryClient = useQueryClient();
 
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
 
-  const { isPending, mutateAsync } = useMutation({
+  const { isPending, mutateAsync: updateTransaction } = useMutation({
     mutationFn: async (data: UpdateTransactionParams) =>
       transactionsService.update(data),
   });
+
+  const { isPending: isPendingDelete, mutateAsync: removeTransaction } =
+    useMutation({
+      mutationFn: async (transactionId: string) =>
+        transactionsService.remove(transactionId),
+    });
 
   const categories = useMemo(() => {
     return categoriesList.filter(
@@ -60,7 +67,7 @@ export const useEditTransactionModalController = (
 
   const handleSubmit = hookFormHandleSubmit(async data => {
     try {
-      await mutateAsync({
+      await updateTransaction({
         ...data,
         id: transaction!.id,
         type: transaction!.type,
@@ -83,12 +90,44 @@ export const useEditTransactionModalController = (
     }
   });
 
+  const handleDeleteTransaction = async () => {
+    try {
+      await removeTransaction(transaction!.id);
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      toast.success(
+        transaction!.type === 'EXPENSE'
+          ? 'despesa excluída com sucesso!'
+          : 'receita excluída com sucesso!',
+      );
+      onClose();
+    } catch {
+      toast.error(
+        transaction!.type === 'EXPENSE'
+          ? 'Erro ao excluir despesa!'
+          : 'Erro ao excluir receita!',
+      );
+    }
+  };
+
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
   return {
     control,
     errors,
     accounts,
     categories,
     isPending,
+    isDeleteModalOpen,
+    isPendingDelete,
+    handleDeleteTransaction,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
     handleSubmit,
     register,
   };
