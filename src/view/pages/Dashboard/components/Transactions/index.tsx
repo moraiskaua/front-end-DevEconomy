@@ -26,6 +26,7 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
     handleOpenFiltersModal,
     handleCloseFiltersModal,
     handleChangeFilters,
+    handleApplyFilters,
   } = useTransactionsController();
 
   return (
@@ -35,6 +36,7 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
           <FiltersModal
             open={isFiltersModalOpen}
             onClose={handleCloseFiltersModal}
+            onApplyFilters={handleApplyFilters}
           />
 
           <header>
