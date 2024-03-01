@@ -75,6 +75,7 @@ export const useEditTransactionModalController = (
         date: data.date.toISOString(),
       });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
       toast.success(
         transaction!.type === 'EXPENSE'
           ? 'Despesa editada com sucesso!'
@@ -94,10 +95,11 @@ export const useEditTransactionModalController = (
     try {
       await removeTransaction(transaction!.id);
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
       toast.success(
         transaction!.type === 'EXPENSE'
-          ? 'despesa excluída com sucesso!'
-          : 'receita excluída com sucesso!',
+          ? 'Despesa excluída com sucesso!'
+          : 'Receita excluída com sucesso!',
       );
       onClose();
     } catch {
