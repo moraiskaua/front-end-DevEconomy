@@ -10,7 +10,8 @@ const Register: React.FC<RegisterProps> = ({}) => {
 
   return (
     <div className="w-full">
-      <header className="flex flex-col items-center gap-4 text-center">
+      <header className="flex flex-col items-center text-center">
+        <img src="/favicon.png" className="size-36 md:size-52" />
         <h1 className="text-2xl font-bold text-gray-900  tracking-[-1px]">
           Crie sua conta
         </h1>

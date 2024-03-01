@@ -8,7 +8,7 @@ import Fab from './components/Fab';
 import Transactions from './components/Transactions';
 import EditAccountModal from './components/modals/EditAccountModal';
 import NewAccountModal from './components/modals/NewAccountModal';
-import NewTransactionModal from './components/modals/NewTransactionModal';
+import NewTransactionModal from './components/modals/newTransactionModal';
 
 interface DashboardProps {}
 
