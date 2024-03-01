@@ -11,6 +11,7 @@ import { Spinner } from '../../../../components/Spinner';
 import EmptyStateImage from '../../../../../assets/empty-state.svg';
 import TransactionTypeDropdown from './TransactionTypeDropdown';
 import FiltersModal from './FiltersModal';
+import { formatDate } from '../../../../../app/utils/formatDate';
 
 interface TransactionsProps {}
 
@@ -21,8 +22,10 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
     isInitialLoading,
     transactions,
     isFiltersModalOpen,
+    filters,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
+    handleChangeFilters,
   } = useTransactionsController();
 
   return (
@@ -44,7 +47,14 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
             </div>
 
             <div className="mt-6 relative">
-              <Swiper slidesPerView={3} centeredSlides>
+              <Swiper
+                slidesPerView={3}
+                centeredSlides
+                initialSlide={filters.month}
+                onSlideChange={swiper =>
+                  handleChangeFilters('month')(swiper.realIndex)
+                }
+              >
                 <TransactionsSliderNavigation />
 
                 {MONTHS.map((month, index) => (
@@ -63,29 +73,45 @@ const Transactions: React.FC<TransactionsProps> = ({}) => {
           </header>
 
           <div className="mt-4 space-y-2 flex-1 overflow-y-auto">
-            {transactions.length > 0 || !isLoading ? (
+            {transactions.length > 0 && !isLoading ? (
               <>
-                <div className="bg-white p-4 rounded-2xl flex justify-between items-center gap-4">
-                  <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon type="expense" />
-
-                    <div>
-                      <strong className="font-bold tracking-[-0.5px] block">
-                        Almoço
-                      </strong>
-                      <span className="text-sm text-gray-600">27/02/2024</span>
-                    </div>
-                  </div>
-
-                  <span
-                    className={cn(
-                      'tracking-[-0.5px] font-medium',
-                      !areValuesVisible && 'blur-sm',
-                    )}
+                {transactions.map(transaction => (
+                  <div
+                    key={transaction.id}
+                    className="bg-white p-4 rounded-2xl flex justify-between items-center gap-4"
                   >
-                    {formatCurrency(782.9)}
-                  </span>
-                </div>
+                    <div className="flex-1 flex items-center gap-3">
+                      <CategoryIcon
+                        type={
+                          transaction.type === 'EXPENSE' ? 'expense' : 'income'
+                        }
+                        category={transaction.category?.icon}
+                      />
+
+                      <div>
+                        <strong className="font-bold tracking-[-0.5px] block">
+                          {transaction.name}
+                        </strong>
+                        <span className="text-sm text-gray-600">
+                          {formatDate(new Date(transaction.date))}
+                        </span>
+                      </div>
+                    </div>
+
+                    <span
+                      className={cn(
+                        'tracking-[-0.5px] font-medium',
+                        !areValuesVisible && 'blur-sm',
+                        transaction.type === 'EXPENSE'
+                          ? 'text-red-800'
+                          : 'text-green-800',
+                      )}
+                    >
+                      {transaction.type === 'EXPENSE' ? '-' : '+'}
+                      {formatCurrency(transaction.value)}
+                    </span>
+                  </div>
+                ))}
               </>
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center">
