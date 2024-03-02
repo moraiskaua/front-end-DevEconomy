@@ -12,7 +12,7 @@ const Fab: React.FC<FabProps> = ({}) => {
     useDashboard();
 
   return (
-    <div className="fixed right-4 bottom-4">
+    <div className="fixed right-4 bottom-4 z-20">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger asChild>
           <button className="bg-teal-900 size-12 flex justify-center items-center rounded-full text-white">
